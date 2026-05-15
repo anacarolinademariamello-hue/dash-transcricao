@@ -4,26 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dash Digital | Transcrição de Vídeos e Áudios</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --gold: #F5B731;
-      --gold-dark: #D99B1A;
-      --gold-light: #FDD068;
-      --blue: #1B3A6B;
+      --gold: #f8b940;
+      --gold-dark: #d99a20;
+      --gold-light: #ffd06a;
+      --blue: #003f7c;
+      --blue-mid: #1a5a9a;
+      --blue-dark: #0d2137;
       --white: #ffffff;
-      --gray-50: #f8f9fc;
-      --gray-100: #f1f3f8;
-      --gray-200: #e2e8f0;
-      --gray-400: #94a3b8;
-      --gray-600: #475569;
-      --gray-800: #1e293b;
+      --gray-50: #f0f3f8;
+      --gray-100: #e8ecf4;
+      --gray-200: #dde3ed;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-800: #1a1a2e;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: var(--gray-50);
       color: var(--gray-800);
       min-height: 100vh;
@@ -31,7 +32,7 @@
 
     /* ── HEADER ── */
     header {
-      background: var(--blue);
+      background: var(--blue-dark);
       padding: 0 2rem;
       display: flex;
       align-items: center;
@@ -43,18 +44,18 @@
     }
 
     .logo-text {
-      font-size: 1.45rem;
-      font-weight: 800;
+      font-size: 1.4rem;
+      font-weight: 700;
       color: var(--white);
-      letter-spacing: -0.5px;
+      letter-spacing: -0.3px;
     }
 
     .header-badge {
-      background: rgba(245,183,49,0.15);
-      border: 1px solid rgba(245,183,49,0.35);
+      background: rgba(248,185,64,0.15);
+      border: 1px solid rgba(248,185,64,0.35);
       color: var(--gold-light);
       font-size: 0.7rem;
-      font-weight: 600;
+      font-weight: 700;
       padding: 4px 10px;
       border-radius: 20px;
       letter-spacing: 0.5px;
@@ -63,14 +64,14 @@
 
     /* ── HERO ── */
     .hero {
-      background: var(--blue);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 60%, var(--blue) 100%);
       padding: 60px 2rem 76px;
       text-align: center;
     }
 
     .hero h1 {
-      font-size: clamp(1.7rem, 4vw, 2.8rem);
-      font-weight: 800;
+      font-size: clamp(1.7rem, 4vw, 2.7rem);
+      font-weight: 700;
       color: var(--white);
       line-height: 1.2;
       margin-bottom: 14px;
@@ -83,7 +84,7 @@
 
     .hero p {
       font-size: 1rem;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.65);
       max-width: 500px;
       margin: 0 auto;
       line-height: 1.65;
@@ -99,16 +100,17 @@
     /* ── UPLOAD CARD ── */
     .card {
       background: var(--white);
-      border-radius: 20px;
+      border-radius: 16px;
       overflow: hidden;
       margin-top: -32px;
       position: relative;
       z-index: 10;
       border: 1px solid var(--gray-200);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     .card-header {
-      background: var(--blue);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
       padding: 20px 28px;
       display: flex;
       align-items: center;
@@ -117,9 +119,10 @@
 
     .card-header-icon {
       width: 36px; height: 36px;
-      background: rgba(245,183,49,0.2);
+      background: rgba(248,185,64,0.2);
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
 
     .card-header h2 {
@@ -146,15 +149,14 @@
       text-align: center;
       cursor: pointer;
       transition: all 0.25s ease;
-      background: var(--blue);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
       position: relative;
     }
 
     .drop-zone:hover,
     .drop-zone.dragover {
       border-color: var(--gold);
-      background: var(--blue);
-      opacity: 0.92;
+      opacity: 0.9;
     }
 
     .drop-zone input[type="file"] {
@@ -168,7 +170,7 @@
 
     .drop-icon {
       width: 56px; height: 56px;
-      background: rgba(245,183,49,0.18);
+      background: rgba(248,185,64,0.18);
       border-radius: 16px;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 16px;
@@ -210,8 +212,8 @@
       display: none;
       align-items: center;
       gap: 14px;
-      background: rgba(27,58,107,0.04);
-      border: 1px solid rgba(27,58,107,0.1);
+      background: rgba(0,63,124,0.04);
+      border: 1px solid rgba(0,63,124,0.12);
       border-radius: 12px;
       padding: 14px 18px;
       margin-top: 16px;
@@ -221,7 +223,7 @@
 
     .file-icon {
       width: 40px; height: 40px;
-      background: var(--blue);
+      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
@@ -279,18 +281,20 @@
       font-size: 1rem;
       font-weight: 700;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      font-family: inherit;
     }
 
     .btn-transcribe:hover:not(:disabled) {
-      opacity: 0.92;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
       transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(248,185,64,0.35);
     }
 
     .btn-transcribe:disabled {
@@ -362,13 +366,14 @@
 
     .result-card {
       background: var(--white);
-      border-radius: 20px;
+      border-radius: 16px;
       overflow: hidden;
       border: 1px solid var(--gray-200);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     .result-header {
-      background: var(--blue);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
       padding: 18px 24px;
       display: flex;
       align-items: center;
@@ -388,11 +393,11 @@
     }
 
     .result-badge {
-      background: rgba(245,183,49,0.2);
-      border: 1px solid rgba(245,183,49,0.4);
+      background: rgba(248,185,64,0.2);
+      border: 1px solid rgba(248,185,64,0.4);
       color: var(--gold-light);
       font-size: 0.68rem;
-      font-weight: 600;
+      font-weight: 700;
       padding: 3px 9px;
       border-radius: 20px;
       text-transform: uppercase;
@@ -417,6 +422,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      font-family: inherit;
     }
 
     .btn-action:hover { background: rgba(255,255,255,0.22); }
@@ -444,6 +450,7 @@
       color: var(--gray-600);
       cursor: pointer;
       transition: all 0.2s;
+      font-family: inherit;
     }
 
     .tab-btn.active {
@@ -491,13 +498,13 @@
       border-left: 3px solid var(--gold);
     }
 
-    .segment-item:hover { background: rgba(245,183,49,0.06); }
+    .segment-item:hover { background: rgba(248,185,64,0.06); }
 
     .segment-time {
       font-size: 0.72rem;
       font-weight: 700;
       color: var(--blue);
-      background: rgba(27,58,107,0.07);
+      background: rgba(0,63,124,0.07);
       padding: 3px 8px;
       border-radius: 6px;
       white-space: nowrap;
@@ -542,7 +549,7 @@
 
     /* ── FOOTER ── */
     footer {
-      background: var(--blue);
+      background: var(--blue-dark);
       text-align: center;
       padding: 28px 2rem;
       color: rgba(255,255,255,0.4);
@@ -586,7 +593,7 @@
     <div class="card-header">
       <div class="card-header-icon">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" stroke="#F5B731" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" stroke="#f8b940" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <div>
@@ -600,8 +607,8 @@
         <input type="file" id="fileInput" accept="video/*,audio/*,.mp4,.mov,.avi,.mkv,.webm,.mp3,.wav,.m4a,.ogg" />
         <div class="drop-icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <path d="M12 16v-8m0 0l-3 3m3-3l3 3" stroke="#F5B731" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M20 16.7A4 4 0 0017 9h-.5A7 7 0 105 15.9" stroke="#F5B731" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 16v-8m0 0l-3 3m3-3l3 3" stroke="#f8b940" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 16.7A4 4 0 0017 9h-.5A7 7 0 105 15.9" stroke="#f8b940" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <h3>Solte seu vídeo ou áudio aqui</h3>
@@ -621,7 +628,7 @@
       <div class="file-preview" id="filePreview">
         <div class="file-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12-3c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" stroke="#F5B731" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12-3c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" stroke="#f8b940" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <div class="file-info">
@@ -721,9 +728,8 @@
   const GROQ_API_KEY = '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';
   const GROQ_MODEL   = 'whisper-large-v3-turbo';
   const SAMPLE_RATE  = 16000;
-  const CHUNK_SEC    = 600; // 10-minute chunks (~18MB WAV each)
+  const CHUNK_SEC    = 600; // 10-minute chunks
 
-  // DOM refs
   const dropZone    = document.getElementById('dropZone');
   const fileInput   = document.getElementById('fileInput');
   const filePreview = document.getElementById('filePreview');
@@ -810,20 +816,17 @@
     const dataLen = samples.length * 2;
     const buf     = new ArrayBuffer(44 + dataLen);
     const view    = new DataView(buf);
-
     function ws(off, str) { for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i)); }
-
-    ws(0,  'RIFF');  view.setUint32(4,  36 + dataLen, true);
-    ws(8,  'WAVE');  ws(12, 'fmt ');
+    ws(0, 'RIFF'); view.setUint32(4, 36 + dataLen, true);
+    ws(8, 'WAVE'); ws(12, 'fmt ');
     view.setUint32(16, 16, true);
-    view.setUint16(20,  1, true);   // PCM
-    view.setUint16(22,  1, true);   // mono
+    view.setUint16(20,  1, true);
+    view.setUint16(22,  1, true);
     view.setUint32(24, sampleRate, true);
     view.setUint32(28, sampleRate * 2, true);
     view.setUint16(32,  2, true);
     view.setUint16(34, 16, true);
-    ws(36, 'data');  view.setUint32(40, dataLen, true);
-
+    ws(36, 'data'); view.setUint32(40, dataLen, true);
     let off = 44;
     for (let i = 0; i < samples.length; i++, off += 2) {
       const s = Math.max(-1, Math.min(1, samples[i]));
@@ -834,26 +837,25 @@
 
   // ── EXTRACT AUDIO CHUNKS ──────────────────────────────────────────────────
   async function extractChunks(file) {
-    const arrayBuffer = await file.arrayBuffer();
-    const audioCtx    = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: SAMPLE_RATE });
-    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-    const channel     = audioBuffer.getChannelData(0);
-    const total       = channel.length;
+    const arrayBuffer  = await file.arrayBuffer();
+    const audioCtx     = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: SAMPLE_RATE });
+    const audioBuffer  = await audioCtx.decodeAudioData(arrayBuffer);
+    const channel      = audioBuffer.getChannelData(0);
     const chunkSamples = CHUNK_SEC * SAMPLE_RATE;
     const chunks = [];
-
-    for (let offset = 0; offset < total; offset += chunkSamples) {
-      const slice = channel.slice(offset, Math.min(offset + chunkSamples, total));
-      chunks.push({ samples: slice, startTime: offset / SAMPLE_RATE });
+    for (let offset = 0; offset < channel.length; offset += chunkSamples) {
+      chunks.push({
+        samples:   channel.slice(offset, Math.min(offset + chunkSamples, channel.length)),
+        startTime: offset / SAMPLE_RATE
+      });
     }
     return chunks;
   }
 
   // ── TRANSCRIBE ONE CHUNK ──────────────────────────────────────────────────
   async function transcribeChunk(chunk) {
-    const wavBlob  = encodeWAV(chunk.samples, SAMPLE_RATE);
     const formData = new FormData();
-    formData.append('file',                     wavBlob, 'audio.wav');
+    formData.append('file',                     encodeWAV(chunk.samples, SAMPLE_RATE), 'audio.wav');
     formData.append('model',                    GROQ_MODEL);
     formData.append('language',                 'pt');
     formData.append('response_format',          'verbose_json');
@@ -872,18 +874,19 @@
     }
 
     const data = await res.json();
-    const segments = (data.segments || []).map(seg => ({
-      start: seg.start + chunk.startTime,
-      end:   seg.end   + chunk.startTime,
-      text:  seg.text.trim()
-    }));
-    return { text: (data.text || '').trim(), segments };
+    return {
+      text: (data.text || '').trim(),
+      segments: (data.segments || []).map(seg => ({
+        start: seg.start + chunk.startTime,
+        end:   seg.end   + chunk.startTime,
+        text:  seg.text.trim()
+      }))
+    };
   }
 
-  // ── MAIN TRANSCRIPTION FLOW ───────────────────────────────────────────────
+  // ── MAIN FLOW ─────────────────────────────────────────────────────────────
   btnTrans.addEventListener('click', async () => {
     if (!selectedFile) return;
-
     hideError();
     resultSec.classList.remove('show');
     btnTrans.disabled = true;
@@ -895,7 +898,7 @@
       try {
         chunks = await extractChunks(selectedFile);
       } catch (e) {
-        throw new Error('Não foi possível decodificar o áudio do arquivo. Tente converter para MP4 ou MP3 e envie novamente.');
+        throw new Error('Não foi possível decodificar o áudio. Tente converter para MP4 ou MP3 e envie novamente.');
       }
 
       setProgress(20, 'Iniciando transcrição...', `${chunks.length} parte(s) para processar`);
@@ -904,22 +907,19 @@
       let allSegments = [];
 
       for (let i = 0; i < chunks.length; i++) {
-        const pct = 20 + Math.round(((i) / chunks.length) * 75);
         const label = chunks.length > 1
           ? `Transcrevendo parte ${i+1} de ${chunks.length}...`
           : 'Transcrevendo áudio...';
-        setProgress(pct, label, 'Enviando para Groq AI...');
+        setProgress(20 + Math.round((i / chunks.length) * 75), label, 'Enviando para Groq AI...');
 
         const result = await transcribeChunk(chunks[i]);
         if (result.text) allText += (allText ? ' ' : '') + result.text;
         allSegments = allSegments.concat(result.segments);
 
-        const pctDone = 20 + Math.round(((i+1) / chunks.length) * 75);
-        setProgress(pctDone, label, 'Parte concluída!');
+        setProgress(20 + Math.round(((i+1) / chunks.length) * 75), label, 'Parte concluída!');
       }
 
       setProgress(100, 'Concluído!', 'Transcrição finalizada com sucesso!');
-
       setTimeout(() => {
         progressSec.classList.remove('show');
         showResult(allText, allSegments);
@@ -966,7 +966,6 @@
     resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // ── COPY ──────────────────────────────────────────────────────────────────
   document.getElementById('btnCopy').addEventListener('click', () => {
     const text = transcFull.textContent;
     if (!text) return;
@@ -978,7 +977,6 @@
     });
   });
 
-  // ── DOWNLOAD ──────────────────────────────────────────────────────────────
   document.getElementById('btnDownload').addEventListener('click', () => {
     const text = transcFull.textContent;
     if (!text) return;
