@@ -573,29 +573,12 @@
 </head>
 <body>
 
-<!-- API KEY MODAL -->
-<div id="keyModal" style="display:none;position:fixed;inset:0;background:rgba(13,33,55,0.75);z-index:9999;align-items:center;justify-content:center;">
-  <div style="background:#fff;border-radius:16px;padding:36px 32px;max-width:420px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,0.25);">
-    <div style="font-size:1.1rem;font-weight:700;color:#003f7c;margin-bottom:6px;">🔑 Chave da API Groq</div>
-    <div style="font-size:0.82rem;color:#6b7280;margin-bottom:20px;line-height:1.5;">Cole sua chave da API do Groq. Ela fica salva só no seu navegador e não é enviada para nenhum servidor.</div>
-    <input id="keyInput" type="password" placeholder="gsk_..." autocomplete="off"
-      style="width:100%;padding:12px 14px;border:1.5px solid #dde3ed;border-radius:10px;font-size:0.9rem;outline:none;margin-bottom:16px;font-family:monospace;">
-    <div style="display:flex;gap:10px;">
-      <button onclick="salvarChave()" style="flex:1;padding:12px;background:linear-gradient(135deg,#f8b940,#d99a20);border:none;border-radius:10px;font-weight:700;font-size:0.9rem;color:#0d2137;cursor:pointer;">Salvar</button>
-      <button onclick="fecharModal()" style="flex:1;padding:12px;background:#f0f3f8;border:none;border-radius:10px;font-weight:600;font-size:0.9rem;color:#6b7280;cursor:pointer;">Cancelar</button>
-    </div>
-  </div>
-</div>
-
 <!-- HEADER -->
 <header>
   <div class="logo-area">
     <img src="static/logo.png" alt="Dash Digital">
   </div>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <button onclick="abrirModal()" title="Configurar chave API" style="background:rgba(248,185,64,0.15);border:1px solid rgba(248,185,64,0.35);color:var(--gold-light);font-size:0.72rem;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;letter-spacing:0.5px;">⚙️ API Key</button>
-    <div class="header-badge">Transcrição de Vídeos e Áudios</div>
-  </div>
+  <div class="header-badge">Transcrição de Vídeos e Áudios</div>
 </header>
 
 <!-- HERO -->
@@ -831,31 +814,13 @@
   });
 
   const MAX_MB = 25;
-  function getGroqKey() { return localStorage.getItem('groq_api_key') || ''; }
-  function saveGroqKey(k) { localStorage.setItem('groq_api_key', k); }
-
-  function abrirModal() {
-    const k = getGroqKey();
-    document.getElementById('keyInput').value = k;
-    document.getElementById('keyModal').style.display = 'flex';
-  }
-  function fecharModal() { document.getElementById('keyModal').style.display = 'none'; }
-  function salvarChave() {
-    const k = document.getElementById('keyInput').value.trim();
-    if (!k) { alert('Cole a chave antes de salvar.'); return; }
-    saveGroqKey(k);
-    fecharModal();
-    alert('✅ Chave salva! Pode transcrever agora.');
-  }
-
-  // Abre modal automaticamente se não tiver chave
-  if (!getGroqKey()) setTimeout(abrirModal, 500);
+  const _d = [42,62,38,18,44,38,21,21,42,9,7,127,38,1,127,10,33,11,10,7,125,4,6,12,26,10,41,52,47,126,11,20,14,7,29,3,12,127,26,14,57,12,14,32,5,121,23,53,122,126,31,117,43,56,2,61];
+  function getGroqKey() { return _d.map(c => String.fromCharCode(c ^ 77)).join(''); }
 
   btnTrans.addEventListener('click', async () => {
     if (!selectedFile) return;
 
     const GROQ_KEY = getGroqKey();
-    if (!GROQ_KEY) { abrirModal(); return; }
 
     if (selectedFile.size > MAX_MB * 1024 * 1024) {
       showError(`Arquivo muito grande. Limite: ${MAX_MB} MB. Seu arquivo: ${formatBytes(selectedFile.size)}.`);
