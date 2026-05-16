@@ -573,12 +573,29 @@
 </head>
 <body>
 
+<!-- API KEY MODAL -->
+<div id="keyModal" style="display:none;position:fixed;inset:0;background:rgba(13,33,55,0.75);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:36px 32px;max-width:420px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,0.25);">
+    <div style="font-size:1.1rem;font-weight:700;color:#003f7c;margin-bottom:6px;">🔑 Chave da API Groq</div>
+    <div style="font-size:0.82rem;color:#6b7280;margin-bottom:20px;line-height:1.5;">Cole sua chave da API do Groq. Ela fica salva só no seu navegador e não é enviada para nenhum servidor.</div>
+    <input id="keyInput" type="password" placeholder="gsk_..." autocomplete="off"
+      style="width:100%;padding:12px 14px;border:1.5px solid #dde3ed;border-radius:10px;font-size:0.9rem;outline:none;margin-bottom:16px;font-family:monospace;">
+    <div style="display:flex;gap:10px;">
+      <button onclick="salvarChave()" style="flex:1;padding:12px;background:linear-gradient(135deg,#f8b940,#d99a20);border:none;border-radius:10px;font-weight:700;font-size:0.9rem;color:#0d2137;cursor:pointer;">Salvar</button>
+      <button onclick="fecharModal()" style="flex:1;padding:12px;background:#f0f3f8;border:none;border-radius:10px;font-weight:600;font-size:0.9rem;color:#6b7280;cursor:pointer;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 <!-- HEADER -->
 <header>
   <div class="logo-area">
     <img src="static/logo.png" alt="Dash Digital">
   </div>
-  <div class="header-badge">Transcrição de Vídeos e Áudios</div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <button onclick="abrirModal()" title="Configurar chave API" style="background:rgba(248,185,64,0.15);border:1px solid rgba(248,185,64,0.35);color:var(--gold-light);font-size:0.72rem;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;letter-spacing:0.5px;">⚙️ API Key</button>
+    <div class="header-badge">Transcrição de Vídeos e Áudios</div>
+  </div>
 </header>
 
 <!-- HERO -->
@@ -613,7 +630,7 @@
           </svg>
         </div>
         <h3>Solte seu vídeo ou áudio aqui</h3>
-        <p>Ou clique para selecionar &nbsp;·&nbsp; Tamanho máximo: 500 MB</p>
+        <p>Ou clique para selecionar &nbsp;·&nbsp; Tamanho máximo: 25 MB</p>
         <div class="formats">
           <span class="format-tag">MP4</span>
           <span class="format-tag">MOV</span>
@@ -813,76 +830,88 @@
     });
   });
 
+  const MAX_MB = 25;
+  function getGroqKey() { return localStorage.getItem('groq_api_key') || ''; }
+  function saveGroqKey(k) { localStorage.setItem('groq_api_key', k); }
+
+  function abrirModal() {
+    const k = getGroqKey();
+    document.getElementById('keyInput').value = k;
+    document.getElementById('keyModal').style.display = 'flex';
+  }
+  function fecharModal() { document.getElementById('keyModal').style.display = 'none'; }
+  function salvarChave() {
+    const k = document.getElementById('keyInput').value.trim();
+    if (!k) { alert('Cole a chave antes de salvar.'); return; }
+    saveGroqKey(k);
+    fecharModal();
+    alert('✅ Chave salva! Pode transcrever agora.');
+  }
+
+  // Abre modal automaticamente se não tiver chave
+  if (!getGroqKey()) setTimeout(abrirModal, 500);
+
   btnTrans.addEventListener('click', async () => {
     if (!selectedFile) return;
+
+    const GROQ_KEY = getGroqKey();
+    if (!GROQ_KEY) { abrirModal(); return; }
+
+    if (selectedFile.size > MAX_MB * 1024 * 1024) {
+      showError(`Arquivo muito grande. Limite: ${MAX_MB} MB. Seu arquivo: ${formatBytes(selectedFile.size)}.`);
+      return;
+    }
 
     hideError();
     resultSec.classList.remove('show');
     btnTrans.disabled = true;
     progressSec.classList.add('show');
-    setProgress(10, 'Enviando arquivo...', 'Carregando o arquivo para análise...');
+    setProgress(10, 'Enviando para Groq...', 'Preparando arquivo...');
 
     const formData = new FormData();
-    formData.append('file', selectedFile);
+    formData.append('file', selectedFile, selectedFile.name);
+    formData.append('model', 'whisper-large-v3-turbo');
+    formData.append('language', 'pt');
+    formData.append('response_format', 'verbose_json');
+
+    let fakePct = 20;
+    const msgs = [
+      'Enviando para Groq AI...', 'Analisando fala...', 'Reconhecendo idioma...',
+      'Processando segmentos...', 'Aplicando inteligência artificial...', 'Refinando transcrição...'
+    ];
+    const fakeInterval = setInterval(() => {
+      if (fakePct < 88) {
+        fakePct += Math.random() * 5;
+        setProgress(Math.min(fakePct, 88), 'Transcrevendo...', msgs[Math.floor(Math.random() * msgs.length)]);
+      }
+    }, 800);
 
     try {
-      setProgress(25, 'Processando...', 'Extraindo áudio do vídeo...');
+      const resp = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${GROQ_KEY}` },
+        body: formData,
+      });
 
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/transcribe');
+      clearInterval(fakeInterval);
 
-      xhr.upload.onprogress = (e) => {
-        if (e.lengthComputable) {
-          const pct = Math.round((e.loaded / e.total) * 30) + 10;
-          setProgress(pct, 'Enviando...', 'Enviando arquivo...');
-        }
-      };
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err?.error?.message || `Erro ${resp.status}`);
+      }
 
-      let fakePct = 40;
-      const fakeInterval = setInterval(() => {
-        if (fakePct < 88) {
-          fakePct += Math.random() * 4;
-          const msgs = [
-            'Analisando fala...','Reconhecendo idioma...','Processando segmentos...',
-            'Aplicando inteligência artificial...','Refinando transcrição...'
-          ];
-          setProgress(Math.min(fakePct, 88), 'Transcrevendo...', msgs[Math.floor(Math.random()*msgs.length)]);
-        } else {
-          clearInterval(fakeInterval);
-        }
-      }, 900);
-
-      xhr.onload = () => {
-        clearInterval(fakeInterval);
-        if (xhr.status === 200) {
-          const data = JSON.parse(xhr.responseText);
-          setProgress(100, 'Concluído!', 'Transcrição finalizada!');
-          setTimeout(() => {
-            progressSec.classList.remove('show');
-            showResult(data);
-            btnTrans.disabled = false;
-          }, 600);
-        } else {
-          progressSec.classList.remove('show');
-          let err = {};
-          try { err = JSON.parse(xhr.responseText); } catch(e) {}
-          showError(err.error || 'Erro ao processar o arquivo.');
-          btnTrans.disabled = false;
-        }
-      };
-
-      xhr.onerror = () => {
-        clearInterval(fakeInterval);
+      const data = await resp.json();
+      setProgress(100, 'Concluído!', 'Transcrição finalizada!');
+      setTimeout(() => {
         progressSec.classList.remove('show');
-        showError('Falha na conexão com o servidor.');
+        showResult({ transcript: data.text, segments: data.segments || [] });
         btnTrans.disabled = false;
-      };
-
-      xhr.send(formData);
+      }, 500);
 
     } catch (err) {
+      clearInterval(fakeInterval);
       progressSec.classList.remove('show');
-      showError('Erro inesperado: ' + err.message);
+      showError('Erro: ' + err.message);
       btnTrans.disabled = false;
     }
   });
