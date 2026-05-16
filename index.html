@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dash Digital | Transcrição de Vídeos e Áudios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
       --gold: #f8b940;
@@ -24,7 +25,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
       background: var(--gray-50);
       color: var(--gray-800);
       min-height: 100vh;
@@ -38,16 +39,14 @@
       align-items: center;
       justify-content: space-between;
       height: 68px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
       position: sticky;
       top: 0;
       z-index: 100;
     }
 
-    .logo-text {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: -0.3px;
+    .logo-area img {
+      height: 36px;
     }
 
     .header-badge {
@@ -65,16 +64,26 @@
     /* ── HERO ── */
     .hero {
       background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 60%, var(--blue) 100%);
-      padding: 60px 2rem 76px;
+      padding: 70px 2rem 80px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
     }
 
     .hero h1 {
-      font-size: clamp(1.7rem, 4vw, 2.7rem);
-      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
       color: var(--white);
       line-height: 1.2;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .hero h1 em {
@@ -83,14 +92,14 @@
     }
 
     .hero p {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.65);
-      max-width: 500px;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
       margin: 0 auto;
-      line-height: 1.65;
+      line-height: 1.6;
     }
 
-    /* ── MAIN ── */
+    /* ── MAIN CONTENT ── */
     .container {
       max-width: 860px;
       margin: 0 auto;
@@ -101,12 +110,12 @@
     .card {
       background: var(--white);
       border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,63,124,0.09);
       overflow: hidden;
       margin-top: -32px;
       position: relative;
       z-index: 10;
       border: 1px solid var(--gray-200);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     .card-header {
@@ -137,9 +146,7 @@
       margin-top: 2px;
     }
 
-    .card-body {
-      padding: 28px;
-    }
+    .card-body { padding: 28px; }
 
     /* ── DROP ZONE ── */
     .drop-zone {
@@ -149,14 +156,14 @@
       text-align: center;
       cursor: pointer;
       transition: all 0.25s ease;
-      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 100%);
+      background: var(--gray-50);
       position: relative;
     }
 
     .drop-zone:hover,
     .drop-zone.dragover {
       border-color: var(--gold);
-      opacity: 0.9;
+      background: rgba(248,185,64,0.04);
     }
 
     .drop-zone input[type="file"] {
@@ -170,7 +177,7 @@
 
     .drop-icon {
       width: 56px; height: 56px;
-      background: rgba(248,185,64,0.18);
+      background: linear-gradient(135deg, rgba(248,185,64,0.15), rgba(0,63,124,0.08));
       border-radius: 16px;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 16px;
@@ -179,13 +186,13 @@
     .drop-zone h3 {
       font-size: 1rem;
       font-weight: 700;
-      color: var(--white);
+      color: var(--blue);
       margin-bottom: 6px;
     }
 
     .drop-zone p {
       font-size: 0.85rem;
-      color: rgba(255,255,255,0.6);
+      color: var(--gray-400);
     }
 
     .drop-zone .formats {
@@ -197,8 +204,8 @@
     }
 
     .format-tag {
-      background: rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.75);
+      background: var(--gray-100);
+      color: var(--gray-600);
       font-size: 0.7rem;
       font-weight: 600;
       padding: 3px 9px;
@@ -213,7 +220,7 @@
       align-items: center;
       gap: 14px;
       background: rgba(0,63,124,0.04);
-      border: 1px solid rgba(0,63,124,0.12);
+      border: 1px solid rgba(0,63,124,0.1);
       border-radius: 12px;
       padding: 14px 18px;
       margin-top: 16px;
@@ -223,7 +230,7 @@
 
     .file-icon {
       width: 40px; height: 40px;
-      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      background: var(--blue);
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
@@ -255,50 +262,34 @@
     }
     .remove-file:hover { color: #e53e3e; }
 
-    /* ── ERROR ── */
-    .error-box {
-      display: none;
-      background: #fff5f5;
-      border: 1px solid #fed7d7;
-      border-radius: 12px;
-      padding: 14px 18px;
-      color: #c53030;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-top: 16px;
-      align-items: center;
-      gap: 10px;
-    }
-    .error-box.show { display: flex; }
-
     /* ── BTN ── */
     .btn-transcribe {
       width: 100%;
       margin-top: 20px;
       padding: 16px;
       background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      color: var(--blue);
+      color: var(--blue-dark);
       font-size: 1rem;
       font-weight: 700;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      font-family: inherit;
-    }
-
-    .btn-transcribe:hover:not(:disabled) {
-      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
-      transform: translateY(-1px);
       box-shadow: 0 4px 16px rgba(248,185,64,0.35);
     }
 
+    .btn-transcribe:hover:not(:disabled) {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(248,185,64,0.45);
+    }
+
     .btn-transcribe:disabled {
-      opacity: 0.5;
+      opacity: 0.55;
       cursor: not-allowed;
       transform: none;
     }
@@ -332,7 +323,7 @@
       background: linear-gradient(90deg, var(--gold) 0%, var(--gold-dark) 100%);
       border-radius: 999px;
       width: 0%;
-      transition: width 0.5s ease;
+      transition: width 0.4s ease;
     }
 
     .status-msg {
@@ -347,7 +338,7 @@
 
     .spinner {
       width: 14px; height: 14px;
-      border: 2px solid var(--gold-light);
+      border: 2px solid rgba(248,185,64,0.3);
       border-top-color: var(--gold-dark);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
@@ -367,9 +358,9 @@
     .result-card {
       background: var(--white);
       border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,63,124,0.09);
       overflow: hidden;
       border: 1px solid var(--gray-200);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     .result-header {
@@ -422,10 +413,9 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      font-family: inherit;
     }
 
-    .btn-action:hover { background: rgba(255,255,255,0.22); }
+    .btn-action:hover { background: rgba(255,255,255,0.2); }
 
     .result-body { padding: 24px; }
 
@@ -450,18 +440,18 @@
       color: var(--gray-600);
       cursor: pointer;
       transition: all 0.2s;
-      font-family: inherit;
     }
 
     .tab-btn.active {
       background: var(--white);
       color: var(--blue);
+      box-shadow: 0 1px 6px rgba(0,63,124,0.12);
     }
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* ── TRANSCRIPT ── */
+    /* ── TRANSCRIPT TEXT ── */
     .transcript-text {
       background: var(--gray-50);
       border: 1px solid var(--gray-200);
@@ -480,7 +470,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      max-height: 420px;
+      max-height: 400px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -496,6 +486,7 @@
       border-radius: 10px;
       padding: 12px 14px;
       border-left: 3px solid var(--gold);
+      transition: background 0.2s;
     }
 
     .segment-item:hover { background: rgba(248,185,64,0.06); }
@@ -547,26 +538,35 @@
       color: var(--blue);
     }
 
+    /* ── ERROR ── */
+    .error-box {
+      display: none;
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #c53030;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-top: 16px;
+      align-items: center;
+      gap: 10px;
+    }
+    .error-box.show { display: flex; }
+
     /* ── FOOTER ── */
     footer {
       background: var(--blue-dark);
       text-align: center;
       padding: 28px 2rem;
-      color: rgba(255,255,255,0.4);
-      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.75rem;
     }
 
-    footer a {
-      color: var(--gold);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    footer a:hover { text-decoration: underline; }
-
+    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
-      .hero { padding: 44px 1.5rem 66px; }
-      .card-body { padding: 18px; }
+      .hero { padding: 50px 1.5rem 70px; }
+      .card-body { padding: 20px; }
       .result-header { flex-direction: column; gap: 12px; align-items: flex-start; }
     }
   </style>
@@ -575,7 +575,9 @@
 
 <!-- HEADER -->
 <header>
-  <span class="logo-text">Dash Digital</span>
+  <div class="logo-area">
+    <img src="static/logo.png" alt="Dash Digital">
+  </div>
   <div class="header-badge">Transcrição de Vídeos e Áudios</div>
 </header>
 
@@ -598,7 +600,7 @@
       </div>
       <div>
         <h2>Enviar Vídeo ou Áudio</h2>
-        <p>Arraste e solte ou clique para selecionar</p>
+        <p>Arraste e solte ou clique para selecionar seu arquivo</p>
       </div>
     </div>
     <div class="card-body">
@@ -606,13 +608,12 @@
       <div class="drop-zone" id="dropZone">
         <input type="file" id="fileInput" accept="video/*,audio/*,.mp4,.mov,.avi,.mkv,.webm,.mp3,.wav,.m4a,.ogg" />
         <div class="drop-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <path d="M12 16v-8m0 0l-3 3m3-3l3 3" stroke="#f8b940" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M20 16.7A4 4 0 0017 9h-.5A7 7 0 105 15.9" stroke="#f8b940" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M15 10l-4 4-4-4m4-7v11m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="#003f7c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <h3>Solte seu vídeo ou áudio aqui</h3>
-        <p>Ou clique para selecionar &nbsp;·&nbsp; Sem limite de tamanho</p>
+        <p>Ou clique para selecionar &nbsp;·&nbsp; Tamanho máximo: 500 MB</p>
         <div class="formats">
           <span class="format-tag">MP4</span>
           <span class="format-tag">MOV</span>
@@ -628,7 +629,8 @@
       <div class="file-preview" id="filePreview">
         <div class="file-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M9 19V6l12-3v13M9 19c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm12-3c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z" stroke="#f8b940" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 10l-4 4-4-4m4-7v11" stroke="#f8b940" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="3" y="3" width="18" height="18" rx="3" stroke="#f8b940" stroke-width="1.5"/>
           </svg>
         </div>
         <div class="file-info">
@@ -667,7 +669,7 @@
         </div>
         <div class="status-msg">
           <div class="spinner"></div>
-          <span id="statusMsg">Iniciando...</span>
+          <span id="statusMsg">Enviando arquivo para análise...</span>
         </div>
       </div>
 
@@ -721,39 +723,34 @@
 
 <!-- FOOTER -->
 <footer>
-  Desenvolvido por <a href="https://instagram.com/dashdgt" target="_blank">@dashdgt</a> &nbsp;·&nbsp; Dash Digital &nbsp;·&nbsp; Todos os direitos reservados
+  Desenvolvido por Dash Digital &nbsp;·&nbsp; @dashdgt &nbsp;·&nbsp; Todos os direitos reservados
 </footer>
 
 <script>
-  const GROQ_API_KEY = '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';
-  const GROQ_MODEL   = 'whisper-large-v3-turbo';
-  const SAMPLE_RATE  = 16000;
-  const CHUNK_SEC    = 600; // 10-minute chunks
-
-  const dropZone    = document.getElementById('dropZone');
-  const fileInput   = document.getElementById('fileInput');
-  const filePreview = document.getElementById('filePreview');
-  const fileNameEl  = document.getElementById('fileName');
-  const fileSizeEl  = document.getElementById('fileSize');
-  const removeFile  = document.getElementById('removeFile');
-  const btnTrans    = document.getElementById('btnTranscribe');
-  const progressSec = document.getElementById('progressSection');
-  const progressBar = document.getElementById('progressBar');
-  const progressPct = document.getElementById('progressPct');
-  const progressLbl = document.getElementById('progressLabel');
-  const statusMsg   = document.getElementById('statusMsg');
-  const resultSec   = document.getElementById('resultSection');
-  const transcFull  = document.getElementById('transcriptFull');
-  const segList     = document.getElementById('segmentsList');
-  const statsBar    = document.getElementById('statsBar');
-  const errorBox    = document.getElementById('errorBox');
-  const errorMsgEl  = document.getElementById('errorMsg');
+  const dropZone   = document.getElementById('dropZone');
+  const fileInput  = document.getElementById('fileInput');
+  const filePreview= document.getElementById('filePreview');
+  const fileName   = document.getElementById('fileName');
+  const fileSize   = document.getElementById('fileSize');
+  const removeFile = document.getElementById('removeFile');
+  const btnTrans   = document.getElementById('btnTranscribe');
+  const progressSec= document.getElementById('progressSection');
+  const progressBar= document.getElementById('progressBar');
+  const progressPct= document.getElementById('progressPct');
+  const progressLbl= document.getElementById('progressLabel');
+  const statusMsg  = document.getElementById('statusMsg');
+  const resultSec  = document.getElementById('resultSection');
+  const transcFull = document.getElementById('transcriptFull');
+  const segList    = document.getElementById('segmentsList');
+  const statsBar   = document.getElementById('statsBar');
+  const errorBox   = document.getElementById('errorBox');
+  const errorMsg   = document.getElementById('errorMsg');
 
   let selectedFile = null;
 
-  function formatBytes(b) {
-    if (b < 1024*1024) return (b/1024).toFixed(1) + ' KB';
-    return (b/(1024*1024)).toFixed(1) + ' MB';
+  function formatBytes(bytes) {
+    if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+    return (bytes/(1024*1024)).toFixed(1) + ' MB';
   }
 
   function formatTime(s) {
@@ -762,23 +759,10 @@
     return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
   }
 
-  function setProgress(pct, label, status) {
-    progressBar.style.width = pct + '%';
-    progressPct.textContent = pct + '%';
-    if (label)  progressLbl.textContent = label;
-    if (status) statusMsg.textContent   = status;
-  }
-
-  function showError(msg) {
-    errorMsgEl.textContent = msg;
-    errorBox.classList.add('show');
-  }
-  function hideError() { errorBox.classList.remove('show'); }
-
   function setFile(file) {
     selectedFile = file;
-    fileNameEl.textContent = file.name;
-    fileSizeEl.textContent = formatBytes(file.size);
+    fileName.textContent = file.name;
+    fileSize.textContent = formatBytes(file.size);
     filePreview.classList.add('show');
     btnTrans.disabled = false;
     resultSec.classList.remove('show');
@@ -792,15 +776,33 @@
     btnTrans.disabled = true;
   }
 
-  fileInput.addEventListener('change', e => { if (e.target.files[0]) setFile(e.target.files[0]); });
+  fileInput.addEventListener('change', e => {
+    if (e.target.files[0]) setFile(e.target.files[0]);
+  });
+
   removeFile.addEventListener('click', clearFile);
+
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
   dropZone.addEventListener('drop', e => {
     e.preventDefault();
     dropZone.classList.remove('dragover');
-    if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
+    const f = e.dataTransfer.files[0];
+    if (f) setFile(f);
   });
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorBox.classList.add('show');
+  }
+  function hideError() { errorBox.classList.remove('show'); }
+
+  function setProgress(pct, label, status) {
+    progressBar.style.width = pct + '%';
+    progressPct.textContent = pct + '%';
+    if (label) progressLbl.textContent = label;
+    if (status) statusMsg.textContent = status;
+  }
 
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -811,135 +813,89 @@
     });
   });
 
-  // ── WAV ENCODING ──────────────────────────────────────────────────────────
-  function encodeWAV(samples, sampleRate) {
-    const dataLen = samples.length * 2;
-    const buf     = new ArrayBuffer(44 + dataLen);
-    const view    = new DataView(buf);
-    function ws(off, str) { for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i)); }
-    ws(0, 'RIFF'); view.setUint32(4, 36 + dataLen, true);
-    ws(8, 'WAVE'); ws(12, 'fmt ');
-    view.setUint32(16, 16, true);
-    view.setUint16(20,  1, true);
-    view.setUint16(22,  1, true);
-    view.setUint32(24, sampleRate, true);
-    view.setUint32(28, sampleRate * 2, true);
-    view.setUint16(32,  2, true);
-    view.setUint16(34, 16, true);
-    ws(36, 'data'); view.setUint32(40, dataLen, true);
-    let off = 44;
-    for (let i = 0; i < samples.length; i++, off += 2) {
-      const s = Math.max(-1, Math.min(1, samples[i]));
-      view.setInt16(off, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-    }
-    return new Blob([buf], { type: 'audio/wav' });
-  }
-
-  // ── EXTRACT AUDIO CHUNKS ──────────────────────────────────────────────────
-  async function extractChunks(file) {
-    const arrayBuffer  = await file.arrayBuffer();
-    const audioCtx     = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: SAMPLE_RATE });
-    const audioBuffer  = await audioCtx.decodeAudioData(arrayBuffer);
-    const channel      = audioBuffer.getChannelData(0);
-    const chunkSamples = CHUNK_SEC * SAMPLE_RATE;
-    const chunks = [];
-    for (let offset = 0; offset < channel.length; offset += chunkSamples) {
-      chunks.push({
-        samples:   channel.slice(offset, Math.min(offset + chunkSamples, channel.length)),
-        startTime: offset / SAMPLE_RATE
-      });
-    }
-    return chunks;
-  }
-
-  // ── TRANSCRIBE ONE CHUNK ──────────────────────────────────────────────────
-  async function transcribeChunk(chunk) {
-    const formData = new FormData();
-    formData.append('file',                     encodeWAV(chunk.samples, SAMPLE_RATE), 'audio.wav');
-    formData.append('model',                    GROQ_MODEL);
-    formData.append('language',                 'pt');
-    formData.append('response_format',          'verbose_json');
-    formData.append('timestamp_granularities[]','segment');
-
-    const res = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
-      method:  'POST',
-      headers: { 'Authorization': 'Bearer ' + GROQ_API_KEY },
-      body:    formData
-    });
-
-    if (!res.ok) {
-      let msg = 'Erro na API Groq (' + res.status + ')';
-      try { const j = await res.json(); msg = j.error?.message || msg; } catch (_) {}
-      throw new Error(msg);
-    }
-
-    const data = await res.json();
-    return {
-      text: (data.text || '').trim(),
-      segments: (data.segments || []).map(seg => ({
-        start: seg.start + chunk.startTime,
-        end:   seg.end   + chunk.startTime,
-        text:  seg.text.trim()
-      }))
-    };
-  }
-
-  // ── MAIN FLOW ─────────────────────────────────────────────────────────────
   btnTrans.addEventListener('click', async () => {
     if (!selectedFile) return;
+
     hideError();
     resultSec.classList.remove('show');
     btnTrans.disabled = true;
     progressSec.classList.add('show');
-    setProgress(5, 'Extraindo áudio...', 'Decodificando arquivo...');
+    setProgress(10, 'Enviando arquivo...', 'Carregando o arquivo para análise...');
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
 
     try {
-      let chunks;
-      try {
-        chunks = await extractChunks(selectedFile);
-      } catch (e) {
-        throw new Error('Não foi possível decodificar o áudio. Tente converter para MP4 ou MP3 e envie novamente.');
-      }
+      setProgress(25, 'Processando...', 'Extraindo áudio do vídeo...');
 
-      setProgress(20, 'Iniciando transcrição...', `${chunks.length} parte(s) para processar`);
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/transcribe');
 
-      let allText = '';
-      let allSegments = [];
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+          const pct = Math.round((e.loaded / e.total) * 30) + 10;
+          setProgress(pct, 'Enviando...', 'Enviando arquivo...');
+        }
+      };
 
-      for (let i = 0; i < chunks.length; i++) {
-        const label = chunks.length > 1
-          ? `Transcrevendo parte ${i+1} de ${chunks.length}...`
-          : 'Transcrevendo áudio...';
-        setProgress(20 + Math.round((i / chunks.length) * 75), label, 'Enviando para Groq AI...');
+      let fakePct = 40;
+      const fakeInterval = setInterval(() => {
+        if (fakePct < 88) {
+          fakePct += Math.random() * 4;
+          const msgs = [
+            'Analisando fala...','Reconhecendo idioma...','Processando segmentos...',
+            'Aplicando inteligência artificial...','Refinando transcrição...'
+          ];
+          setProgress(Math.min(fakePct, 88), 'Transcrevendo...', msgs[Math.floor(Math.random()*msgs.length)]);
+        } else {
+          clearInterval(fakeInterval);
+        }
+      }, 900);
 
-        const result = await transcribeChunk(chunks[i]);
-        if (result.text) allText += (allText ? ' ' : '') + result.text;
-        allSegments = allSegments.concat(result.segments);
+      xhr.onload = () => {
+        clearInterval(fakeInterval);
+        if (xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText);
+          setProgress(100, 'Concluído!', 'Transcrição finalizada!');
+          setTimeout(() => {
+            progressSec.classList.remove('show');
+            showResult(data);
+            btnTrans.disabled = false;
+          }, 600);
+        } else {
+          progressSec.classList.remove('show');
+          let err = {};
+          try { err = JSON.parse(xhr.responseText); } catch(e) {}
+          showError(err.error || 'Erro ao processar o arquivo.');
+          btnTrans.disabled = false;
+        }
+      };
 
-        setProgress(20 + Math.round(((i+1) / chunks.length) * 75), label, 'Parte concluída!');
-      }
-
-      setProgress(100, 'Concluído!', 'Transcrição finalizada com sucesso!');
-      setTimeout(() => {
+      xhr.onerror = () => {
+        clearInterval(fakeInterval);
         progressSec.classList.remove('show');
-        showResult(allText, allSegments);
+        showError('Falha na conexão com o servidor.');
         btnTrans.disabled = false;
-      }, 500);
+      };
+
+      xhr.send(formData);
 
     } catch (err) {
       progressSec.classList.remove('show');
-      showError(err.message || 'Erro inesperado. Tente novamente.');
+      showError('Erro inesperado: ' + err.message);
       btnTrans.disabled = false;
     }
   });
 
-  // ── RENDER RESULT ─────────────────────────────────────────────────────────
-  function showResult(text, segments) {
+  function showResult(data) {
+    const text = data.transcript || '';
+    const segs  = data.segments  || [];
+
     transcFull.textContent = text;
 
     segList.innerHTML = '';
-    if (segments.length > 0) {
-      segments.forEach(seg => {
+    if (segs.length > 0) {
+      segs.forEach(seg => {
         const div = document.createElement('div');
         div.className = 'segment-item';
         div.innerHTML = `
@@ -953,13 +909,14 @@
     }
 
     const words = text.split(/\s+/).filter(Boolean).length;
-    const dur   = segments.length ? segments[segments.length-1].end : 0;
+    const chars = text.length;
+    const dur   = segs.length ? segs[segs.length-1].end : 0;
 
     statsBar.innerHTML = `
-      <div class="stat-item"><span class="stat-dot"></span><span class="stat-value">${words}</span>&nbsp;palavras</div>
-      <div class="stat-item"><span class="stat-dot"></span><span class="stat-value">${text.length}</span>&nbsp;caracteres</div>
-      <div class="stat-item"><span class="stat-dot"></span><span class="stat-value">${segments.length}</span>&nbsp;segmentos</div>
-      ${dur ? `<div class="stat-item"><span class="stat-dot"></span><span class="stat-value">${formatTime(dur)}</span>&nbsp;duração</div>` : ''}
+      <div class="stat-item"><span class="stat-dot"></span> <span class="stat-value">${words}</span>&nbsp;palavras</div>
+      <div class="stat-item"><span class="stat-dot"></span> <span class="stat-value">${chars}</span>&nbsp;caracteres</div>
+      <div class="stat-item"><span class="stat-dot"></span> <span class="stat-value">${segs.length}</span>&nbsp;segmentos</div>
+      ${dur ? `<div class="stat-item"><span class="stat-dot"></span> <span class="stat-value">${formatTime(dur)}</span>&nbsp;duração</div>` : ''}
     `;
 
     resultSec.classList.add('show');
